@@ -1,6 +1,9 @@
+//go:generate go run github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen -package main -generate types,client -o client.gen.go swagger.json
+
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 )
 
@@ -45,4 +48,8 @@ type httpDoerWithAuth struct {
 func (d *httpDoerWithAuth) Do(req *http.Request) (*http.Response, error) {
 	req.SetBasicAuth(d.username, d.password)
 	return d.Client.Do(req)
+}
+
+func DecodeResponse(resp *http.Response, v interface{}) error {
+	return json.NewDecoder(resp.Body).Decode(v)
 }
