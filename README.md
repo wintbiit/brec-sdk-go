@@ -1,5 +1,5 @@
 # GO SDK for [BililiveRecorder](https://rec.danmuji.org/)
-![Brec Version](https://img.shields.io/badge/version-3.0.1-blue)
+![Brec Version](https://img.shields.io/badge/version-2.11.0-blue)
 
 ## Update API Specification
 1. Alter `swagger.json` file to new version.
