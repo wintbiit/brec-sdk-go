@@ -3,8 +3,9 @@ package main_test
 import (
 	"context"
 	"encoding/json"
-	brec "github.com/wintbiit/brec-sdk-go"
 	"testing"
+
+	brec "github.com/wintbiit/brec-sdk-go"
 )
 
 const (
