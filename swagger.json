@@ -1,0 +1,2891 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "录播姬 REST API",
+    "description": "录播姬网站 [rec.danmuji.org](https://rec.danmuji.org/)  \n录播姬 GitHub [BililiveRecorder/BililiveRecorder](https://github.com/BililiveRecorder/BililiveRecorder)  \n\n除了 REST API 以外，录播姬还有 Graphql API 可以使用。\n\nAPI 中的 objectId 在重启后会重新生成，不保存到配置文件。",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/config/default": {
+      "get": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "获取软件默认设置",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultConfig"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultConfig"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultConfig"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/config/global": {
+      "get": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "获取全局设置",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalConfigDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalConfigDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalConfigDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "设置全局设置",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetGlobalConfig"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetGlobalConfig"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetGlobalConfig"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetGlobalConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalConfigDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalConfigDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalConfigDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/file": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "获取录播目录文件信息",
+        "operationId": "File GetFiles",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "description": "路径",
+            "schema": {
+              "type": "string"
+            },
+            "example": "/"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileApiResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileApiResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileApiResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/fetch": {
+      "get": {
+        "tags": [
+          "Log"
+        ],
+        "summary": "获取 JSON 日志",
+        "parameters": [
+          {
+            "name": "after",
+            "in": "query",
+            "description": "只获取此 id 之后的日志",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonLogDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonLogDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonLogDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/misc/generatefilename": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "根据传入参数生成录播文件名",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateFileNameInput"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateFileNameInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateFileNameInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateFileNameInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileNameTemplateOutput"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileNameTemplateOutput"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileNameTemplateOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room": {
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "列出所有直播间",
+        "operationId": "Room GetRooms",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RoomDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RoomDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RoomDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "添加直播间",
+        "operationId": "Room CreateRoom",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{roomId}": {
+      "delete": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "删除直播间",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "读取一个直播间",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{objectId}": {
+      "delete": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "删除直播间",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "读取一个直播间",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{roomId}/stats": {
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "读取直播间录制统计信息",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomRecordingStatsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomRecordingStatsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomRecordingStatsDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{objectId}/stats": {
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "读取直播间录制统计信息",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomRecordingStatsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomRecordingStatsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomRecordingStatsDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{roomId}/iostats": {
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "读取直播间 IO 统计信息",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomIOStatsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomIOStatsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomIOStatsDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{objectId}/iostats": {
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "读取直播间 IO 统计信息",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomIOStatsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomIOStatsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomIOStatsDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{roomId}/config": {
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "读取直播间设置",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "修改直播间设置",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetRoomConfig"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetRoomConfig"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetRoomConfig"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetRoomConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{objectId}/config": {
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "读取直播间设置",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "修改直播间设置",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetRoomConfig"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetRoomConfig"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetRoomConfig"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetRoomConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomConfigDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{roomId}/start": {
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "开始录制",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{objectId}/start": {
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "开始录制",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{roomId}/stop": {
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "停止录制",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{objectId}/stop": {
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "停止录制",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{roomId}/split": {
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "手动分段",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{objectId}/split": {
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "手动分段",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{roomId}/refresh": {
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "刷新直播间信息",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room/{objectId}/refresh": {
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "刷新直播间信息",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/version": {
+      "get": {
+        "tags": [
+          "Version"
+        ],
+        "summary": "读取软件版本信息",
+        "operationId": "Version GetVersion",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecorderVersion"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecorderVersion"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecorderVersion"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AllowedAddressFamily": {
+        "enum": [
+          0,
+          1,
+          2,
+          -1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "AllowedAddressFamilyOptional": {
+        "type": "object",
+        "properties": {
+          "hasValue": {
+            "type": "boolean"
+          },
+          "value": {
+            "$ref": "#/components/schemas/AllowedAddressFamily"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BooleanOptional": {
+        "type": "object",
+        "properties": {
+          "hasValue": {
+            "type": "boolean"
+          },
+          "value": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateRoomDto": {
+        "type": "object",
+        "properties": {
+          "roomId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "autoRecord": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CuttingMode": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "CuttingModeOptional": {
+        "type": "object",
+        "properties": {
+          "hasValue": {
+            "type": "boolean"
+          },
+          "value": {
+            "$ref": "#/components/schemas/CuttingMode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DanmakuTransportMode": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "DanmakuTransportModeOptional": {
+        "type": "object",
+        "properties": {
+          "hasValue": {
+            "type": "boolean"
+          },
+          "value": {
+            "$ref": "#/components/schemas/DanmakuTransportMode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DefaultConfig": {
+        "type": "object",
+        "properties": {
+          "recordMode": {
+            "$ref": "#/components/schemas/RecordMode"
+          },
+          "cuttingMode": {
+            "$ref": "#/components/schemas/CuttingMode"
+          },
+          "cuttingNumber": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "cuttingByTitle": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "recordDanmaku": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "recordDanmakuRaw": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "recordDanmakuSuperChat": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "recordDanmakuGift": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "recordDanmakuGuard": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "saveStreamCover": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "recordingQuality": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "fileNameRecordTemplate": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "flvProcessorSplitOnScriptTag": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "flvWriteMetadata": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "webHookUrls": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "webHookUrlsV2": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "wpfShowTitleAndArea": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "wpfNotifyStreamStart": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "cookie": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "liveApiHost": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "timingCheckInterval": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "timingApiTimeout": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "timingStreamRetry": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "timingStreamRetryNoQn": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "timingStreamConnect": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "timingDanmakuRetry": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "timingWatchdogTimeout": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "recordDanmakuFlushInterval": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "danmakuTransport": {
+            "$ref": "#/components/schemas/DanmakuTransportMode"
+          },
+          "danmakuAuthenticateWithStreamerUid": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "networkTransportUseSystemProxy": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "networkTransportAllowedAddressFamily": {
+            "$ref": "#/components/schemas/AllowedAddressFamily"
+          },
+          "userScript": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileApiResult": {
+        "type": "object",
+        "properties": {
+          "exist": {
+            "type": "boolean"
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/FileDto"
+                },
+                {
+                  "$ref": "#/components/schemas/FolderDto"
+                }
+              ]
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileDto": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FileLikeDto"
+          }
+        ],
+        "properties": {
+          "isFolder": {
+            "type": "boolean",
+            "readOnly": true,
+            "example": false
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileLikeDto": {
+        "type": "object",
+        "properties": {
+          "isFolder": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileNameTemplateContextDto": {
+        "type": "object",
+        "properties": {
+          "roomId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shortId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "uid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "areaParent": {
+            "type": "string",
+            "nullable": true
+          },
+          "areaChild": {
+            "type": "string",
+            "nullable": true
+          },
+          "partIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "qn": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "json": {
+            "type": "string",
+            "nullable": true,
+            "example": "{}"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileNameTemplateOutput": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/FileNameTemplateStatus"
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "relativePath": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullPath": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileNameTemplateStatus": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "FolderDto": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FileLikeDto"
+          }
+        ],
+        "properties": {
+          "isFolder": {
+            "type": "boolean",
+            "readOnly": true,
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GenerateFileNameInput": {
+        "type": "object",
+        "properties": {
+          "template": {
+            "type": "string",
+            "description": "文件名模板",
+            "nullable": true
+          },
+          "context": {
+            "$ref": "#/components/schemas/FileNameTemplateContextDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GlobalConfigDto": {
+        "type": "object",
+        "properties": {
+          "optionalRecordMode": {
+            "$ref": "#/components/schemas/RecordModeOptional"
+          },
+          "optionalCuttingMode": {
+            "$ref": "#/components/schemas/CuttingModeOptional"
+          },
+          "optionalCuttingNumber": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalCuttingByTitle": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmaku": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuRaw": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuSuperChat": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuGift": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuGuard": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalSaveStreamCover": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordingQuality": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalFileNameRecordTemplate": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalFlvProcessorSplitOnScriptTag": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalFlvWriteMetadata": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalWebHookUrls": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalWebHookUrlsV2": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalWpfShowTitleAndArea": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalWpfNotifyStreamStart": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalCookie": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalLiveApiHost": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalTimingCheckInterval": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingApiTimeout": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingStreamRetry": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingStreamRetryNoQn": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingStreamConnect": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingDanmakuRetry": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingWatchdogTimeout": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalRecordDanmakuFlushInterval": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalDanmakuTransport": {
+            "$ref": "#/components/schemas/DanmakuTransportModeOptional"
+          },
+          "optionalDanmakuAuthenticateWithStreamerUid": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalNetworkTransportUseSystemProxy": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalNetworkTransportAllowedAddressFamily": {
+            "$ref": "#/components/schemas/AllowedAddressFamilyOptional"
+          },
+          "optionalUserScript": {
+            "$ref": "#/components/schemas/StringOptional"
+          }
+        },
+        "additionalProperties": false
+      },
+      "JsonLogDto": {
+        "type": "object",
+        "properties": {
+          "continuous": {
+            "type": "boolean"
+          },
+          "cursor": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "logs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RecordMode": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "RecordModeOptional": {
+        "type": "object",
+        "properties": {
+          "hasValue": {
+            "type": "boolean"
+          },
+          "value": {
+            "$ref": "#/components/schemas/RecordMode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RecorderVersion": {
+        "type": "object",
+        "properties": {
+          "major": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "minor": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "patch": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "preReleaseTag": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "preReleaseTagWithDash": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "preReleaseLabel": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "preReleaseLabelWithDash": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "preReleaseNumber": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "weightedPreReleaseNumber": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "buildMetaData": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "buildMetaDataPadded": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "fullBuildMetaData": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "majorMinorPatch": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "semVer": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "legacySemVer": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "legacySemVerPadded": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "assemblySemVer": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "assemblySemFileVer": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "fullSemVer": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "informationalVersion": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "branchName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "escapedBranchName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "sha": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "shortSha": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "nuGetVersionV2": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "nuGetVersion": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "nuGetPreReleaseTagV2": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "nuGetPreReleaseTag": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "versionSourceSha": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "commitsSinceVersionSource": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "commitsSinceVersionSourcePadded": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "uncommittedChanges": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "commitDate": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RestApiError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/RestApiErrorCode"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RestApiErrorCode": {
+        "enum": [
+          -4,
+          -3,
+          -2,
+          -1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "RoomConfigDto": {
+        "type": "object",
+        "properties": {
+          "autoRecord": {
+            "type": "boolean"
+          },
+          "optionalRecordMode": {
+            "$ref": "#/components/schemas/RecordModeOptional"
+          },
+          "optionalCuttingMode": {
+            "$ref": "#/components/schemas/CuttingModeOptional"
+          },
+          "optionalCuttingNumber": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalCuttingByTitle": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmaku": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuRaw": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuSuperChat": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuGift": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuGuard": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalSaveStreamCover": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordingQuality": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalFlvProcessorSplitOnScriptTag": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoomDto": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "roomId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "autoRecord": {
+            "type": "boolean"
+          },
+          "shortId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "uid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "areaNameParent": {
+            "type": "string",
+            "nullable": true
+          },
+          "areaNameChild": {
+            "type": "string",
+            "nullable": true
+          },
+          "recording": {
+            "type": "boolean"
+          },
+          "streaming": {
+            "type": "boolean"
+          },
+          "danmakuConnected": {
+            "type": "boolean"
+          },
+          "autoRecordForThisSession": {
+            "type": "boolean"
+          },
+          "recordingStats": {
+            "$ref": "#/components/schemas/RoomRecordingStatsDto"
+          },
+          "ioStats": {
+            "$ref": "#/components/schemas/RoomIOStatsDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoomIOStatsDto": {
+        "type": "object",
+        "properties": {
+          "streamHost": {
+            "type": "string",
+            "description": "直播服务器域名",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "description": "当前统计区间的开始时间",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "description": "当前统计区间的结束时间",
+            "format": "date-time"
+          },
+          "duration": {
+            "type": "number",
+            "description": "当前统计区间的时长，毫秒",
+            "format": "double"
+          },
+          "networkBytesDownloaded": {
+            "type": "integer",
+            "description": "下载了的数据量",
+            "format": "int32"
+          },
+          "networkMbps": {
+            "type": "number",
+            "description": "平均下载速度，mibi-bits per second",
+            "format": "double"
+          },
+          "diskWriteDuration": {
+            "type": "number",
+            "description": "统计区间内的磁盘写入耗时，毫秒",
+            "format": "double"
+          },
+          "diskBytesWritten": {
+            "type": "integer",
+            "description": "统计区间内写入磁盘的数据量",
+            "format": "int32"
+          },
+          "diskMBps": {
+            "type": "number",
+            "description": "平均写入速度，mibi-bytes per second",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoomRecordingStatsDto": {
+        "type": "object",
+        "properties": {
+          "sessionDuration": {
+            "type": "number",
+            "description": "从录制开始到现在一共经过的时间，毫秒",
+            "format": "double"
+          },
+          "totalInputBytes": {
+            "type": "integer",
+            "description": "总接受字节数",
+            "format": "int64"
+          },
+          "totalOutputBytes": {
+            "type": "integer",
+            "description": "总写入字节数",
+            "format": "int64"
+          },
+          "currentFileSize": {
+            "type": "integer",
+            "description": "当前文件的大小",
+            "format": "int64"
+          },
+          "sessionMaxTimestamp": {
+            "type": "integer",
+            "description": "本次直播流收到的最大时间戳（已修复过，相当于总时长，毫秒）",
+            "format": "int32"
+          },
+          "fileMaxTimestamp": {
+            "type": "integer",
+            "description": "当前文件的最大时间戳（相当于总时长，毫秒）",
+            "format": "int32"
+          },
+          "addedDuration": {
+            "type": "number",
+            "description": "当前这一个统计区间的直播数据时长，毫秒",
+            "format": "double"
+          },
+          "passedTime": {
+            "type": "number",
+            "description": "当前这一个统计区间所经过的时间长度，毫秒",
+            "format": "double"
+          },
+          "durationRatio": {
+            "type": "number",
+            "description": "录制速度比例",
+            "format": "double"
+          },
+          "inputVideoBytes": {
+            "type": "integer",
+            "description": "当前统计区间新收到的视频数据大小",
+            "format": "int64"
+          },
+          "inputAudioBytes": {
+            "type": "integer",
+            "description": "当前统计区间新收到的音频数据大小",
+            "format": "int64"
+          },
+          "outputVideoFrames": {
+            "type": "integer",
+            "description": "当前统计区间新写入的视频帧数量",
+            "format": "int32"
+          },
+          "outputAudioFrames": {
+            "type": "integer",
+            "description": "当前统计区间新写入的音频帧数量",
+            "format": "int32"
+          },
+          "outputVideoBytes": {
+            "type": "integer",
+            "description": "当前统计区间新写入的视频数据大小",
+            "format": "int64"
+          },
+          "outputAudioBytes": {
+            "type": "integer",
+            "description": "当前统计区间新写入的音频数据大小",
+            "format": "int64"
+          },
+          "totalInputVideoBytes": {
+            "type": "integer",
+            "description": "总共收到的视频数据大小",
+            "format": "int64"
+          },
+          "totalInputAudioBytes": {
+            "type": "integer",
+            "description": "总共收到的音频数据大小",
+            "format": "int64"
+          },
+          "totalOutputVideoFrames": {
+            "type": "integer",
+            "description": "总共写入的视频帧数量",
+            "format": "int32"
+          },
+          "totalOutputAudioFrames": {
+            "type": "integer",
+            "description": "总共写入的音频帧数量",
+            "format": "int32"
+          },
+          "totalOutputVideoBytes": {
+            "type": "integer",
+            "description": "总共写入的视频数据大小",
+            "format": "int64"
+          },
+          "totalOutputAudioBytes": {
+            "type": "integer",
+            "description": "总共写入的音频数据大小",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SetGlobalConfig": {
+        "type": "object",
+        "properties": {
+          "optionalRecordMode": {
+            "$ref": "#/components/schemas/RecordModeOptional"
+          },
+          "optionalCuttingMode": {
+            "$ref": "#/components/schemas/CuttingModeOptional"
+          },
+          "optionalCuttingNumber": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalCuttingByTitle": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmaku": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuRaw": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuSuperChat": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuGift": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuGuard": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalSaveStreamCover": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordingQuality": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalFileNameRecordTemplate": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalFlvProcessorSplitOnScriptTag": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalFlvWriteMetadata": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalWebHookUrls": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalWebHookUrlsV2": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalWpfShowTitleAndArea": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalWpfNotifyStreamStart": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalCookie": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalLiveApiHost": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalTimingCheckInterval": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingApiTimeout": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingStreamRetry": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingStreamRetryNoQn": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingStreamConnect": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingDanmakuRetry": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalTimingWatchdogTimeout": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalRecordDanmakuFlushInterval": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalDanmakuTransport": {
+            "$ref": "#/components/schemas/DanmakuTransportModeOptional"
+          },
+          "optionalDanmakuAuthenticateWithStreamerUid": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalNetworkTransportUseSystemProxy": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalNetworkTransportAllowedAddressFamily": {
+            "$ref": "#/components/schemas/AllowedAddressFamilyOptional"
+          },
+          "optionalUserScript": {
+            "$ref": "#/components/schemas/StringOptional"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SetRoomConfig": {
+        "type": "object",
+        "properties": {
+          "autoRecord": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "optionalRecordMode": {
+            "$ref": "#/components/schemas/RecordModeOptional"
+          },
+          "optionalCuttingMode": {
+            "$ref": "#/components/schemas/CuttingModeOptional"
+          },
+          "optionalCuttingNumber": {
+            "$ref": "#/components/schemas/UInt32Optional"
+          },
+          "optionalCuttingByTitle": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmaku": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuRaw": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuSuperChat": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuGift": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordDanmakuGuard": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalSaveStreamCover": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          },
+          "optionalRecordingQuality": {
+            "$ref": "#/components/schemas/StringOptional"
+          },
+          "optionalFlvProcessorSplitOnScriptTag": {
+            "$ref": "#/components/schemas/BooleanOptional"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StringOptional": {
+        "type": "object",
+        "properties": {
+          "hasValue": {
+            "type": "boolean"
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UInt32Optional": {
+        "type": "object",
+        "properties": {
+          "hasValue": {
+            "type": "boolean"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
