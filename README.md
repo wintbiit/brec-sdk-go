@@ -10,6 +10,10 @@ go generate
 3. Check `client.gen.go` file.
 
 ## Usage
+### Add as dependency
+```shell
+go get github.com/wintbiit/brec-sdk-go
+```
 ```go
 package main
 
