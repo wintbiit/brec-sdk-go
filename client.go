@@ -1,6 +1,6 @@
-//go:generate go run github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen -package main -generate types,client -o client.gen.go swagger.json
+//go:generate go run github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen -package brec -generate types,client -o client.gen.go swagger.json
 
-package main
+package brec
 
 import (
 	"encoding/json"

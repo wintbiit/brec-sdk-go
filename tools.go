@@ -1,6 +1,6 @@
 //go:build tools
 
-package main
+package brec
 
 import (
 	_ "github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen"
